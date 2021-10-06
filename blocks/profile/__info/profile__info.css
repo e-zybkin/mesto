@@ -1,0 +1,14 @@
+.profile__info {
+  display: grid;
+  max-width: 336px;
+  min-height: 73px;
+  margin: 22px 0 25px 0;
+  grid-template-columns: 294px 24px;
+  grid-template-rows: 39px 18px;
+  grid-template-areas:
+    "name edit"
+    "about about"
+  ;
+  column-gap: 18px;
+  row-gap: 16px;
+}
