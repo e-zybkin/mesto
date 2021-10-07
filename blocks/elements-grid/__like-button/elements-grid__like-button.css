@@ -1,6 +1,16 @@
 .elements-grid__like-button {
+  background-color: white;
   background-image: url(../../../images/like.svg);
+  background-position: center;
   background-repeat: no-repeat;
-  max-width: 22px;
-  min-height: 19px;
+  background-size: contain;
+  border: none;
+  width: 22px;
+  height: 19px;
+  align-self: center;
+  transition: opacity 0.25s linear;
+}
+
+.elements-grid__like-button:hover {
+  opacity: 0.5;
 }

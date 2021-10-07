@@ -2,3 +2,17 @@
   max-width: 142px;
   min-height: 33px;
 }
+
+@media screen and (max-width: 1023px) {
+  .header__logo {
+    margin-left: 45px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .header__logo {
+    max-width: 103px;
+    min-height: 24px;
+    margin-left: 27px;
+  }
+}
