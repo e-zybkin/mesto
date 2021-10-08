@@ -1,7 +1,7 @@
-.profile__btns {
+.buttons {
   transition: opacity 0.25s linear;
 }
 
-.profile__btns:hover {
+.buttons:hover {
   opacity: 0.6;
 }

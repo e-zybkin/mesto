@@ -9,6 +9,7 @@
   height: 19px;
   align-self: center;
   transition: opacity 0.25s linear;
+  cursor: pointer;
 }
 
 .elements-grid__like-button:hover {

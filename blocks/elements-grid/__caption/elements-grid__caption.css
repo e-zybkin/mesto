@@ -1,5 +1,6 @@
 .elements-grid__caption {
   max-width: 190px;
+  min-height: 23px;
   font-weight: 900;
   font-size: 24px;
   line-height: 29px;
@@ -15,5 +16,13 @@
     max-width: 240px;
     min-height: 35px;
     font-size: 30px;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .elements-grid__caption {
+    max-width: 190px;
+    min-height: 23px;
+    font-size: 24px;
   }
 }
