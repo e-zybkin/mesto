@@ -25,7 +25,7 @@ function saveForm(event) {
   closePopup()
 }
 
-function Clicker (event) {
+function clicker (event) {
   if(event.target.classList.contains('popup')){
     closePopup()
   }
@@ -38,4 +38,4 @@ popupCloseButton.addEventListener('click', closePopup)
 
 form.addEventListener('submit', saveForm)
 
-popup.addEventListener('mouseup', Clicker)
+popup.addEventListener('mouseup', clicker)
