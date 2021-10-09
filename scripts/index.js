@@ -11,11 +11,11 @@ nameField.value = nameOnPage.textContent
 statusField.value = statusOnPage.textContent
 
 function openPopup () {
-  popup.classList.add('popup_isOpen')
+  popup.classList.add('popup_opened')
 }
 
 function closePopup () {
-  popup.classList.remove('popup_isOpen')
+  popup.classList.remove('popup_opened')
 }
 
 function saveForm(event) {
