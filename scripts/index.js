@@ -1,14 +1,23 @@
 const popup = document.querySelectorAll('.popup');
+
 const popupProfile = document.querySelector('.popup_type_profile');
 const popupItem = document.querySelector('.popup_type_item');
+
 const popupCloseButton = document.querySelectorAll('.popup__close-btn');
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
+
 const formProfile = document.querySelector('.popup__form_type_profile');
+const formCard = document.querySelector('.popup__form_type_card');
+
 const nameField = document.querySelector('.popup__input_type_name');
 const nameOnPage = document.querySelector('.profile__name');
 const statusField = document.querySelector('.popup__input_type_status');
 const statusOnPage = document.querySelector('.profile__about');
+const titleField = document.querySelector('.popup__input_type_title');
+
+const picField = document.querySelector('.popup__input_type_pic');
+
 const cardElement = document.querySelector('.template__card').content;
 const cardsList = document.querySelector('.elements-grid');
 
@@ -51,7 +60,12 @@ function baseCardsAppend(item){
   cardsList.append(element);
 }
 
-function openProfilePopup () { 
+function cardsPrepend(item){
+  const element = baseCardsCreate(item);
+  cardsList.prepend(element);
+}
+
+function openProfilePopup () {
   popupProfile.classList.add('popup_opened')
   nameField.value = nameOnPage.textContent
   statusField.value = statusOnPage.textContent
@@ -67,11 +81,24 @@ function closePopup () {
   })
 }
 
-function saveForm(event) {
-  event.preventDefault()
-  nameOnPage.textContent = nameField.value
-  statusOnPage.textContent = statusField.value
+function saveProfileChange(event) {
+  event.preventDefault();
+  nameOnPage.textContent = nameField.value;
+  statusOnPage.textContent = statusField.value;
   closePopup()
+}
+
+function saveNewCard(event) {
+  event.preventDefault();
+  const title = titleField.value;
+  const source = picField.value;
+  const item = {
+    name: title,
+    link: source
+  }
+  cardsPrepend(item);
+  event.target.reset();
+  closePopup();
 }
 
 function clicker (event) {
@@ -80,6 +107,7 @@ function clicker (event) {
   }
 }
 
+initialCards.forEach(baseCardsAppend)
 
 editButton.addEventListener('click', openProfilePopup)
 addButton.addEventListener('click', openItemPopup)
@@ -92,6 +120,7 @@ popup.forEach((item)=> {
   item.addEventListener('mouseup', clicker)
 })
 
-formProfile.addEventListener('submit', saveForm)
+formProfile.addEventListener('submit', saveProfileChange)
+formCard.addEventListener('submit', saveNewCard)
 
-initialCards.forEach(baseCardsAppend)
+
