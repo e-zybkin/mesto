@@ -14,6 +14,7 @@
 @import url(../blocks/profile/__add-button/profile__add-button.css);
 @import url(../blocks/elements-grid/elements-grid.css);
 @import url(../blocks/elements-grid/__element/elements-grid__element.css);
+@import url(../blocks/elements-grid/__delete-button/elements-grid__delete-button.css);
 @import url(../blocks/elements-grid/__pic/elements-grid__pic.css);
 @import url(../blocks/elements-grid/__group/elements-grid__group.css);
 @import url(../blocks/elements-grid/__caption/elements-grid__caption.css);
