@@ -22,6 +22,10 @@
 @import url(../blocks/elements-grid/__like-button/_activated/elements-grid__like-button_activated.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
+@import url(../blocks/popup/_type/popup_type_picture.css);
+@import url(../blocks/popup/__picture-content/popup__picture-content.css);
+@import url(../blocks/popup/__picture-image/popup__picture-image.css);
+@import url(../blocks/popup/__picture-caption/popup__picture-caption.css);
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/__content/popup__content.css);

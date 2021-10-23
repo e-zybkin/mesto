@@ -52,15 +52,21 @@ function baseCardsCreate(item){
   const element = cardElement.querySelector('.elements-grid__element').cloneNode(true);
   element.querySelector('.elements-grid__pic').src = item.link;
   element.querySelector('.elements-grid__caption').innerText = item.name;
+  element.querySelector('.elements-grid__like-button').addEventListener('click', (event)=>{
+    event.target.classList.toggle('elements-grid__like-button_activated');
+  });
+  element.querySelector('.elements-grid__delete-button').addEventListener('click', (event)=>{
+    event.target.closest('.elements-grid__element').remove();
+  });
   return element;
 }
 
-function baseCardsAppend(item){
+function baseCardsAppend(item) {
   const element = baseCardsCreate(item);
   cardsList.append(element);
 }
 
-function cardsPrepend(item){
+function cardsPrepend(item) {
   const element = baseCardsCreate(item);
   cardsList.prepend(element);
 }
