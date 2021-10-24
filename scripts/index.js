@@ -56,6 +56,7 @@ function baseCardsCreate(item){
   const element = cardElement.querySelector('.elements-grid__element').cloneNode(true);
   element.querySelector('.elements-grid__pic').src = item.link;
   element.querySelector('.elements-grid__caption').innerText = item.name;
+  element.querySelector('.elements-grid__pic').alt = item.name;
   element.querySelector('.elements-grid__like-button').addEventListener('click', (event)=>{
     event.target.classList.toggle('elements-grid__like-button_activated');
   });
@@ -67,9 +68,11 @@ function baseCardsCreate(item){
     const card = event.target.closest('.elements-grid__element');
     const name = card.querySelector('.elements-grid__caption').textContent;
     const picture = card.querySelector('.elements-grid__pic').src;
+    const alter = card.querySelector('.elements-grid__pic').alt;
     openPicPopup();
     picCaptionOnPage.textContent = name;
     picImageOnPage.src = picture;
+    picImageOnPage.alt = alter;
   })
   return element;
 }
