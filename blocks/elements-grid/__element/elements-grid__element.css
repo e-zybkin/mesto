@@ -10,7 +10,7 @@
   grid-template-rows: 282px 79px;
   grid-template-areas:
     "picture"
-    "caption"
+    "caption";
 }
 
 @media screen and (max-width: 1023px) {
