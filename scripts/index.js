@@ -2,6 +2,7 @@ const popup = document.querySelectorAll('.popup');
 
 const popupProfile = document.querySelector('.popup_type_profile');
 const popupItem = document.querySelector('.popup_type_item');
+const popupPic = document.querySelector('.popup_type_picture');
 
 const popupCloseButton = document.querySelectorAll('.popup__close-btn');
 const editButton = document.querySelector('.profile__edit-button');
@@ -15,6 +16,9 @@ const nameOnPage = document.querySelector('.profile__name');
 const statusField = document.querySelector('.popup__input_type_status');
 const statusOnPage = document.querySelector('.profile__about');
 const titleField = document.querySelector('.popup__input_type_title');
+
+const picCaptionOnPage = document.querySelector('.popup__picture-caption');
+const picImageOnPage = document.querySelector('.popup__picture-image');
 
 const picField = document.querySelector('.popup__input_type_pic');
 
@@ -58,6 +62,15 @@ function baseCardsCreate(item){
   element.querySelector('.elements-grid__delete-button').addEventListener('click', (event)=>{
     event.target.closest('.elements-grid__element').remove();
   });
+
+  element.querySelector('.elements-grid__pic').addEventListener('click', (event)=>{
+    const card = event.target.closest('.elements-grid__element');
+    const name = card.querySelector('.elements-grid__caption').textContent;
+    const picture = card.querySelector('.elements-grid__pic').src;
+    openPicPopup();
+    picCaptionOnPage.textContent = name;
+    picImageOnPage.src = picture;
+  })
   return element;
 }
 
@@ -79,6 +92,10 @@ function openProfilePopup () {
 
 function openItemPopup () {
   popupItem.classList.add('popup_opened')
+}
+
+function openPicPopup () {
+  popupPic.classList.add('popup_opened')
 }
 
 function closePopup () {
