@@ -61,18 +61,14 @@ function createBaseCards(item){
     event.target.classList.toggle('elements-grid__like-button_activated');
   });
   element.querySelector('.elements-grid__delete-button').addEventListener('click', (event)=>{
-    event.target.closest('.elements-grid__element').remove();
+    element.remove();
   });
 
   element.querySelector('.elements-grid__pic').addEventListener('click', (event)=>{
-    const card = event.target.closest('.elements-grid__element');
-    const name = card.querySelector('.elements-grid__caption').textContent;
-    const picture = card.querySelector('.elements-grid__pic').src;
-    const alter = card.querySelector('.elements-grid__pic').alt;
-    picCaptionOnPage.textContent = name;
-    picImageOnPage.src = picture;
-    picImageOnPage.alt = alter;
-    openPicPopup();
+    picCaptionOnPage.textContent = item.name;
+    picImageOnPage.src = item.link;
+    picImageOnPage.alt = item.name;
+    openPopup(popupPic);
   })
   return element;
 }
@@ -87,31 +83,19 @@ function prependCards(item) {
   cardsList.prepend(element);
 }
 
-function openProfilePopup () {
-  popupProfile.classList.add('popup_opened')
-  nameInput.value = nameOnPage.textContent
-  statusInput.value = statusOnPage.textContent
+function openPopup (item) {
+  item.classList.add('popup_opened');
 }
 
-function openItemPopup () {
-  popupItem.classList.add('popup_opened')
-}
-
-function openPicPopup () {
-  popupPic.classList.add('popup_opened')
-}
-
-function closePopup () {
-  popups.forEach((item) => {
-	  item.classList.remove('popup_opened');
-  })
+function closePopup (item) {
+  item.classList.remove('popup_opened');
 }
 
 function saveProfileChange(event) {
   event.preventDefault();
   nameOnPage.textContent = nameInput.value;
   statusOnPage.textContent = statusInput.value;
-  closePopup()
+  closePopup(popupProfile)
 }
 
 function saveNewCard(event) {
@@ -124,22 +108,31 @@ function saveNewCard(event) {
   }
   prependCards(item);
   event.target.reset();
-  closePopup();
+  closePopup(popupItem);
 }
 
-function clicker (event) {
-  if(event.target.classList.contains('popup')){
-    closePopup()
+function clicker (evt) {
+  if(evt.target.classList.contains('popup')){
+    closePopup(evt.target)
   }
 }
 
 initialCards.forEach(appendBaseCards)
 
-editButton.addEventListener('click', openProfilePopup)
-addButton.addEventListener('click', openItemPopup)
+editButton.addEventListener('click', function(){
+  nameInput.value = nameOnPage.textContent;
+  statusInput.value = statusOnPage.textContent;
+  openPopup(popupProfile)
+})
+
+addButton.addEventListener('click', function(){
+  openPopup(popupItem)
+})
 
 popupCloseButtons.forEach((item) => {
-	item.addEventListener('click', closePopup)
+	item.addEventListener('click', function(){
+    closePopup(item.closest('.popup'))
+  })
 })
 
 popups.forEach((item)=> {
