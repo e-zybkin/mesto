@@ -52,7 +52,7 @@ const initialCards = [
   }
 ];
 
-function createBaseCards(item){
+function createBaseCard(item){
   const element = cardElement.querySelector('.elements-grid__element').cloneNode(true);
   element.querySelector('.elements-grid__pic').src = item.link;
   element.querySelector('.elements-grid__caption').innerText = item.name;
@@ -73,13 +73,13 @@ function createBaseCards(item){
   return element;
 }
 
-function appendBaseCards(item) {
-  const element = createBaseCards(item);
+function appendBaseCard(item) {
+  const element = createBaseCard(item);
   cardsList.append(element);
 }
 
-function prependCards(item) {
-  const element = createBaseCards(item);
+function prependCard(item) {
+  const element = createBaseCard(item);
   cardsList.prepend(element);
 }
 
@@ -106,18 +106,18 @@ function saveNewCard(event) {
     name: title,
     link: source
   }
-  prependCards(item);
+  prependCard(item);
   event.target.reset();
   closePopup(popupItem);
 }
 
-function clicker (evt) {
+function clickOutOfPopup (evt) {
   if(evt.target.classList.contains('popup')){
     closePopup(evt.target)
   }
 }
 
-initialCards.forEach(appendBaseCards)
+initialCards.forEach(appendBaseCard)
 
 editButton.addEventListener('click', function(){
   nameInput.value = nameOnPage.textContent;
@@ -130,13 +130,13 @@ addButton.addEventListener('click', function(){
 })
 
 popupCloseButtons.forEach((item) => {
-	item.addEventListener('click', function(){
+  item.addEventListener('click', function(){
     closePopup(item.closest('.popup'))
   })
 })
 
 popups.forEach((item)=> {
-  item.addEventListener('mouseup', clicker)
+  item.addEventListener('mouseup', clickOutOfPopup)
 })
 
 formProfile.addEventListener('submit', saveProfileChange)
