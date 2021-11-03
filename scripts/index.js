@@ -1,3 +1,13 @@
+const config = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__save-btn',
+  inactiveButtonClass: 'popup__save-btn_disabled',
+  inputErrorClass: 'popup__input_type_error',
+}
+
+enableValidation(config);
+
 const popups = document.querySelectorAll('.popup');
 
 const popupProfile = document.querySelector('.popup_type_profile');
@@ -117,15 +127,29 @@ function clickOutOfPopup (evt) {
   }
 }
 
+function pressEsc (evt) {
+  const openedPopup = document.querySelector('.popup_opened')
+  if (evt.key === "Escape") {
+    closePopup(openedPopup)
+  }
+}
+
 initialCards.forEach(appendBaseCard)
 
 editButton.addEventListener('click', function(){
   nameInput.value = nameOnPage.textContent;
   statusInput.value = statusOnPage.textContent;
+  isValid(nameInput, formProfile, config);
+  isValid(statusInput, formProfile, config);
+  toggleButtonState(formProfile, config);
   openPopup(popupProfile)
 })
 
 addButton.addEventListener('click', function(){
+  titleInput.value = '';
+  picInput.value = '';
+  isValid(titleInput, formCard, config);
+  isValid(picInput, formCard, config);
   openPopup(popupItem)
 })
 
@@ -136,8 +160,10 @@ popupCloseButtons.forEach((item) => {
 })
 
 popups.forEach((item)=> {
-  item.addEventListener('mouseup', clickOutOfPopup)
+  item.addEventListener('mouseup', clickOutOfPopup);
 })
+
+document.addEventListener('keydown', pressEsc);
 
 formProfile.addEventListener('submit', saveProfileChange)
 formCard.addEventListener('submit', saveNewCard)
