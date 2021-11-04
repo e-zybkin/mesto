@@ -1,13 +1,3 @@
-const config = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__save-btn',
-  inactiveButtonClass: 'popup__save-btn_disabled',
-  inputErrorClass: 'popup__input_type_error',
-}
-
-enableValidation(config);
-
 const popups = document.querySelectorAll('.popup');
 
 const popupProfile = document.querySelector('.popup_type_profile');
@@ -70,11 +60,11 @@ function createBaseCard(item){
   element.querySelector('.elements-grid__like-button').addEventListener('click', (event)=>{
     event.target.classList.toggle('elements-grid__like-button_activated');
   });
-  element.querySelector('.elements-grid__delete-button').addEventListener('click', (event)=>{
+  element.querySelector('.elements-grid__delete-button').addEventListener('click', ()=>{
     element.remove();
   });
 
-  element.querySelector('.elements-grid__pic').addEventListener('click', (event)=>{
+  element.querySelector('.elements-grid__pic').addEventListener('click', ()=>{
     picCaptionOnPage.textContent = item.name;
     picImageOnPage.src = item.link;
     picImageOnPage.alt = item.name;
@@ -88,17 +78,19 @@ function appendBaseCard(item) {
   cardsList.append(element);
 }
 
-function prependCard(item) {
+function prependBaseCard(item) {
   const element = createBaseCard(item);
   cardsList.prepend(element);
 }
 
 function openPopup (item) {
   item.classList.add('popup_opened');
+  document.addEventListener('keydown', pressEsc);
 }
 
 function closePopup (item) {
   item.classList.remove('popup_opened');
+  document.removeEventListener('keydown', pressEsc);
 }
 
 function saveProfileChange(event) {
@@ -116,7 +108,7 @@ function saveNewCard(event) {
     name: title,
     link: source
   }
-  prependCard(item);
+  prependBaseCard(item);
   event.target.reset();
   closePopup(popupItem);
 }
@@ -162,8 +154,6 @@ popupCloseButtons.forEach((item) => {
 popups.forEach((item)=> {
   item.addEventListener('mouseup', clickOutOfPopup);
 })
-
-document.addEventListener('keydown', pressEsc);
 
 formProfile.addEventListener('submit', saveProfileChange)
 formCard.addEventListener('submit', saveNewCard)

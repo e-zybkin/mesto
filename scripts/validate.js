@@ -1,9 +1,17 @@
+const config = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__save-btn',
+  inactiveButtonClass: 'popup__save-btn_disabled',
+  inputErrorClass: 'popup__input_type_error',
+}
+
 function enableValidation(validationConfig) {
   const forms = [...document.querySelectorAll(validationConfig.formSelector)];
-  forms.forEach((form) => setFormListeners(form, validationConfig));
+  forms.forEach((form) => setEventListeners(form, validationConfig));
 };
 
-function setFormListeners(form, config) {
+function setEventListeners(form, config) {
   form.addEventListener('submit', handleSubmit);
   form.addEventListener('input', () => toggleButtonState(form, config));
 
@@ -46,3 +54,5 @@ function hideInputError (input, form, config) {
   input.classList.remove(config.inputErrorClass);
   errorElement.textContent = '';
 };
+
+enableValidation(config);
