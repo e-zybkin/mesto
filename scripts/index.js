@@ -148,8 +148,8 @@ editButton.addEventListener('click', function(){
 addButton.addEventListener('click', function(){
   titleInput.value = '';
   picInput.value = '';
-  isValid(titleInput, formCard, config);
-  isValid(picInput, formCard, config);
+  hideInputError(titleInput, formCard, config);
+  hideInputError(picInput, formCard, config);
   openPopup(popupItem)
 })
 
