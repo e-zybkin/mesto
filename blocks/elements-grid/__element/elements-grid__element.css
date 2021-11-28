@@ -21,7 +21,7 @@
 
 @media screen and (max-width: 630px) {
   .elements-grid__element {
-    grid-template-rows: 500px;
+    grid-template-rows: 300px;
   }
 }
 

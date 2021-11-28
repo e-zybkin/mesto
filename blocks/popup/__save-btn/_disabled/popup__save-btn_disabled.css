@@ -3,3 +3,7 @@
   background-color: white;
   color:rgba(0, 0, 0, 0.2);
 }
+
+.popup__save-btn_disabled:hover {
+  cursor: unset;
+}
