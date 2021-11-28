@@ -37,7 +37,6 @@ const formConfig = {
 }
 
 const cardConfig = {
-  cardElement: '.elements-grid__element',
   picCaptionOnPage: '.popup__picture-caption',
   picImageOnPage: '.popup__picture-image',
   popupPic: '.popup_type_picture',
@@ -59,7 +58,6 @@ const titleInput = document.querySelector('.popup__input_type_title');
 const picInput = document.querySelector('.popup__input_type_pic');
 
 const cardsList = document.querySelector('.elements-grid');
-const cardElement = document.querySelector('.template__card').content;
 
 const popups = document.querySelectorAll('.popup');
 const popupCloseButtons = document.querySelectorAll('.popup__close-btn');
@@ -75,16 +73,20 @@ profileValidator.enableValidation();
 const cardValidator = new FormValidator(formConfig, formCard);
 cardValidator.enableValidation();
 
-function appendBaseCard(item) {
-  const card = new Card(cardConfig, item, cardElement, openPopup);
+function createCard(item) {
+  const card = new Card(cardConfig, item, '.template__card', openPopup);
   const view = card.render();
-  cardsList.append(view);
+  return view;
+}
+
+function appendBaseCard(item) {
+  const card = createCard(item);
+  cardsList.append(card);
 }
 
 function prependBaseCard(item) {
-  const card = new Card(cardConfig, item, cardElement, openPopup);
-  const view = card.render();
-  cardsList.prepend(view);
+  const card = createCard(item);
+  cardsList.prepend(card);
 }
 
 function openPopup (item) {
@@ -119,13 +121,11 @@ function saveProfileChange(event) {
 
 function saveNewCard(event) {
   event.preventDefault();
-  const title = titleInput.value;
-  const source = picInput.value;
-  const item = {
-    name: title,
-    link: source
+  const newCard = {
+    name: titleInput.value,
+    link: picInput.value
   }
-  prependBaseCard(item);
+  prependBaseCard(newCard);
   event.target.reset();
   closePopup(popupItem);
 }
@@ -140,10 +140,10 @@ editButton.addEventListener('click', function(){
 })
 
 addButton.addEventListener('click', function(){
-  titleInput.value = '';
-  picInput.value = '';
+  document.getElementById('cardForm').reset();
   cardValidator.hideInputError(titleInput, formCard, formConfig);
   cardValidator.hideInputError(picInput, formCard, formConfig);
+  cardValidator.toggleButtonState(formCard, formConfig);
   openPopup(popupItem)
 })
 
