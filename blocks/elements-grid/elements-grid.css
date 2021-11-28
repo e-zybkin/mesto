@@ -31,6 +31,9 @@
 
 @media screen and (max-width: 700px){
   .elements-grid {
-    grid-template-columns: repeat(auto-fit, 282px);
+    grid-template-columns: 282px;
+    margin-left: 0;
+    margin-right: 0;
+    justify-content: center;
   }
 }
