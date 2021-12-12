@@ -113,7 +113,6 @@ editButton.addEventListener('click', function() {
 const cardPopup = new PopupWithForm('.popup_type_item',{
   formSubmit: (formData) => {
     defaultSection.addItem(createCard(formData), false);
-    //document.getElementById('cardForm').reset();
     cardPopup.close();
   }
 });

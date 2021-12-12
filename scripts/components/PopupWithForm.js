@@ -15,14 +15,14 @@ class PopupWithForm extends Popup {
     });
     return this._formValues;
   }
-  
+
   close() {
     this._popup.removeEventListener('submit', (event)=> {
       event.preventDefault();
       this._formSubmit(this._getInputValues())
     });
     super.close();
-    this._popup.queryselector('.popup__form').reset();
+    this._popup.querySelector('.popup__form').reset();
   }
 
   setEventListeners() {
