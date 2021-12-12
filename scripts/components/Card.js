@@ -1,9 +1,9 @@
 class Card {
-  constructor(config, item, selector, openPopup) {
+  constructor(config, item, selector, handleCardClick) {
     this._config = config;
     this._item = item;
     this._selector = selector
-    this._openPopup = openPopup;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -23,17 +23,10 @@ class Card {
     event.target.classList.toggle(this._config.likeButtonActive);
   }
 
-  _openPic() {
-    document.querySelector(this._config.picCaptionOnPage).textContent = this._item.name;
-    document.querySelector(this._config.picImageOnPage).src = this._item.link;
-    document.querySelector(this._config.picImageOnPage).alt = this._item.name;
-    this._openPopup(document.querySelector(this._config.popupPic));
-  }
-
   _eventListeners() {
     this._element.querySelector(this._config.likeButton).addEventListener('click', (event)=> this._like());
     this._element.querySelector(this._config.deleteButton).addEventListener('click', ()=> this._remove());
-    this._element.querySelector(this._config.picture).addEventListener('click', ()=> this._openPic());
+    this._element.querySelector(this._config.picture).addEventListener('click', ()=> this._handleCardClick(this._item.name, this._item.link));
   }
 
   render(){

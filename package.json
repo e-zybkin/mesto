@@ -1,0 +1,19 @@
+{
+  "name": "mesto",
+  "version": "0.0.1",
+  "description": "Эта проектная работа представляет из себя небольшую социальную сеть, наиболее похожую на известный всем инстаграм.\r Пока что здесь реализована только возможность менять имя и статус профиля, однако здесь однозначно есть к чему стремиться.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/e-zybkin/mesto.git"
+  },
+  "author": "Evgeniy Zybkin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/e-zybkin/mesto/issues"
+  },
+  "homepage": "https://github.com/e-zybkin/mesto#readme"
+}
