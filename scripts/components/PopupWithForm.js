@@ -16,21 +16,21 @@ class PopupWithForm extends Popup {
     return this._formValues;
   }
 
+  _listener = (event) => {
+    console.log('сработало');
+	  event.preventDefault();
+	  this._formSubmit(this._getInputValues());
+  }
+
   close() {
-    this._popup.removeEventListener('submit', (event)=> {
-      event.preventDefault();
-      this._formSubmit(this._getInputValues())
-    });
+    this._popup.removeEventListener('submit', this._listener);
     super.close();
     this._popup.querySelector('.popup__form').reset();
   }
 
   setEventListeners() {
     super.setEventListeners();
-    this._popup.addEventListener('submit', (event)=> {
-      event.preventDefault();
-      this._formSubmit(this._getInputValues())
-    });
+    this._popup.addEventListener('submit', this._listener);
   }
 }
 
