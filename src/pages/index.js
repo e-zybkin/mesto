@@ -53,6 +53,9 @@ const cardPopup = new PopupWithForm('.popup_type_item',{
   }
 });
 
+const popupImg = new PopupWithImage('.popup_type_picture');
+popupImg.setEventListeners();
+
 function createCard(item) {
   const card = new Card(item, '.template__card', handleCardClick);
   const view = card.render();
@@ -60,8 +63,6 @@ function createCard(item) {
 }
 
 function handleCardClick(name, link) {
-  const popupImg = new PopupWithImage('.popup_type_picture');
-  popupImg.setEventListeners();
   popupImg.open(name, link);
 }
 
