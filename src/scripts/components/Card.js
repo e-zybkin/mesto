@@ -1,10 +1,11 @@
 import {cardConfig} from "../utils/constants.js";
 
 class Card {
-  constructor(item, selector, handleCardClick) {
+  constructor(item, selector, handleCardClick, {handleDeleteIconClick}) {
     this._item = item;
     this._selector = selector
     this._handleCardClick = handleCardClick;
+    this._handleDeleteIconClick = handleDeleteIconClick;
   }
 
   _getTemplate() {
@@ -20,13 +21,18 @@ class Card {
     this._element.remove();
   }
 
+  deleteCard() {
+    this._element.remove();
+    this._element = null;
+  }
+
   _like = (event) => {
     event.target.classList.toggle(cardConfig.likeButtonActive);
   }
 
   _eventListeners() {
     this._element.querySelector(cardConfig.likeButton).addEventListener('click', this._like);
-    this._element.querySelector(cardConfig.deleteButton).addEventListener('click', ()=> this._remove());
+    this._element.querySelector(cardConfig.deleteButton).addEventListener('click', () => {this._handleDeleteIconClick(this)});
     this._cardImage.addEventListener('click', ()=> this._handleCardClick(this._item.name, this._item.link));
   }
 

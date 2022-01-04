@@ -14,7 +14,9 @@
 
         <main>
           <section class="profile">
-            <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватарка профиля">
+            <div class="profile__cover">
+              <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватарка профиля">
+            </div>
             <div class="profile__info">
               <h1 class="profile__name">Жак-Ив Кусто</h1>
               <button type="button" class="profile__edit-button buttons"></button>
@@ -94,7 +96,6 @@
             <div class="input-box">
               <input
                 required
-
                 type="url"
                 placeholder="Ссылка на картинку"
                 id="pic-input"
@@ -105,7 +106,7 @@
               <span class="popup__input-error pic-input-error"></span>
             </div>
 
-            <button type="submit" class="popup__save-btn">Сохранить</button>
+            <button type="submit" class="popup__save-btn">Создать</button>
           </form>
         </div>
       </div>
@@ -115,6 +116,37 @@
           <button type="button" class="popup__close-btn buttons"></button>
           <img class="popup__picture-image">
           <p class="popup__picture-caption"></p>
+        </div>
+      </div>
+
+      <div class="popup popup_type_delete popup_type_others">
+        <div class="popup__content popup__delete-content">
+          <button type="button" class="popup__close-btn buttons"></button>
+          <h3 class="popup__title popup__title_type_del">Вы уверены?</h3>
+          <button type="submit" class="popup__save-btn popup__save-btn_type_del">Да</button>
+        </div>
+      </div>
+
+      <div class="popup popup_type_avatar popup_type_others">
+        <div class="popup__content popup__avatar-content">
+          <button type="button" class="popup__close-btn buttons"></button>
+          <h3 class="popup__title">Обновить аватар</h3>
+          <form class="popup__form popup__form_type_avatar" name="changeAvatar" novalidate>
+            <div class="input-box input-box_type_avatar">
+              <input
+                required
+                type="url"
+                placeholder="Ссылка на картинку"
+                id="avatar-input"
+                class="popup__input popup__input_type_pic"
+                name="name"
+              >
+
+              <span class="popup__input-error pic-input-error"></span>
+            </div>
+
+            <button type="submit" class="popup__save-btn">Сохранить</button>
+          </form>
         </div>
       </div>
 

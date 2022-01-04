@@ -46,9 +46,11 @@ export const cardConfig = {
 
 export const editButton = document.querySelector('.profile__edit-button');
 export const addButton = document.querySelector('.profile__add-button');
+export const avatarButton = document.querySelector('.profile__cover');
 
 export const nameInput = document.querySelector('.popup__input_type_name');
 export const statusInput = document.querySelector('.popup__input_type_status');
 
 export const formProfile = document.querySelector('.popup__form_type_profile');
 export const formCard = document.querySelector('.popup__form_type_card');
+export const formAvatar = document.querySelector('.popup__form_type_avatar');
