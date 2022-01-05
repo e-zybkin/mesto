@@ -19,8 +19,10 @@
 @import url(../blocks/elements-grid/__pic/elements-grid__pic.css);
 @import url(../blocks/elements-grid/__group/elements-grid__group.css);
 @import url(../blocks/elements-grid/__caption/elements-grid__caption.css);
+@import url(../blocks/elements-grid/__likes/elements-grid__likes.css);
 @import url(../blocks/elements-grid/__like-button/elements-grid__like-button.css);
 @import url(../blocks/elements-grid/__like-button/_activated/elements-grid__like-button_activated.css);
+@import url(../blocks/elements-grid/__like-counter/elements-grid__like-counter.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
 @import url(../blocks/popup/_type/popup_type_others.css);

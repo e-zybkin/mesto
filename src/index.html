@@ -18,9 +18,9 @@
               <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватарка профиля">
             </div>
             <div class="profile__info">
-              <h1 class="profile__name">Жак-Ив Кусто</h1>
+              <h1 class="profile__name"></h1>
               <button type="button" class="profile__edit-button buttons"></button>
-              <p class="profile__about">Исследователь океана</p>
+              <p class="profile__about"></p>
             </div>
             <button type="button" class="profile__add-button buttons"></button>
           </section>
@@ -156,7 +156,10 @@
           <img class="elements-grid__pic">
           <div class="elements-grid__group">
             <h2 class="elements-grid__caption"></h2>
-            <button type="button" class="elements-grid__like-button"></button>
+            <div class="elements-grid__likes">
+              <button type="button" class="elements-grid__like-button"></button>
+              <p class="elements-grid__like-counter"></p>
+            </div>
           </div>
         </article>
       </template>

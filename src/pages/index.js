@@ -9,9 +9,9 @@ import PopupDelete from '../scripts/components/PopupDelete.js';
 import Avatar from '../scripts/components/Avatar.js';
 import Section from "../scripts/components/Section.js";
 import UserInfo from "../scripts/components/UserInfo.js";
+import Api from "../scripts/components/Api.js";
 
 import {
-  initialCards,
   editButton,
   addButton,
   avatarButton,
@@ -23,23 +23,43 @@ import {
   formConfig
 } from '../scripts/utils/constants.js'
 
-/*const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-32',
+const api = new Api({
+  address: 'https://mesto.nomoreparties.co/v1/cohort-32',
   headers: {
     authorization: 'ad4f580a-7f64-46a3-b778-5998764688dd',
     'Content-Type': 'application/json'
   }
-});*/
+});
+/*
+api.getInitialCards()
+.then(result => {
+  defaultSection.createElement(result);
+})
+.catch(error => {
+  console.log('ОШИБКА: ', error)
+})
+
+api.getUserData()
+.then(result => {
+  console.log(result)
+})
+.catch(error => {
+  console.log('ОШИБКА: ', error)
+})
+*/
+Promise.all([api.getUserData(), api.getInitialCards()])
+.then(([userData, cards]) => {
+  userInfo.setUserInfo(userData);
+  defaultSection.createElement(cards);
+})
 
 const defaultSection = new Section({
-  items: initialCards,
   renderer: (item) => {
     const card = createCard(item);
     defaultSection.addItem(card, true);
   },
   containerSelector: '.elements-grid',
 });
-defaultSection.createElement();
 
 const userInfo = new UserInfo({
   nameSelector: '.profile__name',
