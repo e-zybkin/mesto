@@ -51,7 +51,7 @@ const avatar = new Avatar({
 });
 
 avatarButton.addEventListener('click',()=> {
-  //avatarValidator.resetValidation(),
+  avatarValidator.resetValidation(),
   avatarPopup.open()
 })
 
@@ -89,7 +89,6 @@ popupImg.setEventListeners();
 const popupDelete = new PopupDelete('.popup_type_delete', {
   handleFormSubmit: () => {}
 });
-popupDelete.setEventListeners();
 
 function createCard(item) {
   const card = new Card(item, '.template__card', handleCardClick, {
@@ -128,3 +127,5 @@ profPopup.setEventListeners();
 cardPopup.setEventListeners();
 
 avatarPopup.setEventListeners();
+
+popupDelete.setEventListeners();

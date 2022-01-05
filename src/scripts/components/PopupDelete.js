@@ -12,7 +12,10 @@ class PopupDelete extends Popup {
 
   setEventListeners() {
     super.setEventListeners();
-    this._popup.addEventListener('submit', ()=>this._handleFormSubmit())
+    this._popup.addEventListener('submit', ()=>{
+      event.preventDefault();
+      this._handleFormSubmit()
+    })
   }
 }
 
