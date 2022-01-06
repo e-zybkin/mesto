@@ -6,7 +6,6 @@ import FormValidator from "../scripts/components/FormValidator.js";
 import PopupWithForm from "../scripts/components/PopupWithForm.js";
 import PopupWithImage from "../scripts/components/PopupWithImage.js";
 import PopupDelete from '../scripts/components/PopupDelete.js';
-import Avatar from '../scripts/components/Avatar.js';
 import Section from "../scripts/components/Section.js";
 import UserInfo from "../scripts/components/UserInfo.js";
 import Api from "../scripts/components/Api.js";
@@ -34,7 +33,7 @@ Promise.all([api.getUserData(), api.getInitialCards()])
 .then(([userData, cards]) => {
   userId = userInfo.getUserId(userData);
   defaultSection.createElement(cards);
-  avatar.setAvatar(userData)
+  userInfo.setAvatar(userData)
   userInfo.setUserInfo(userData);
 })
 
@@ -49,10 +48,7 @@ const defaultSection = new Section({
 const userInfo = new UserInfo({
   nameSelector: '.profile__name',
   statusSelector: '.profile__about',
-});
-
-const avatar = new Avatar({
-  avatarSelector: '.profile__avatar'
+  avatarSelector: '.profile__avatar',
 });
 
 avatarButton.addEventListener('click',()=> {
@@ -75,10 +71,10 @@ const profPopup = new PopupWithForm('.popup_type_profile', {
     api.setUserData(formData)
     .then(result => {
       userInfo.setUserInfo(result);
+      profPopup.close();
     })
     .catch(error => {console.log('ОШИБКА: ', error)})
     .finally(()=>{
-      profPopup.close();
       renderLoading(false, needPopup, finalText);
     });
   }
@@ -91,11 +87,11 @@ const cardPopup = new PopupWithForm('.popup_type_item',{
     renderLoading(true, needPopup, finalText)
     api.setNewCard(formData)
     .then(result => {
-      defaultSection.addItem(createCard(result), false)
+      defaultSection.addItem(createCard(result), false);
+      cardPopup.close();
     })
     .catch(error => console.log('ОШИБКА: ', error))
     .finally(()=>{
-      cardPopup.close();
       renderLoading(false, needPopup, finalText);
     });
   }
@@ -108,11 +104,11 @@ const avatarPopup = new PopupWithForm('.popup_type_avatar', {
     renderLoading(true, needPopup, finalText)
     api.setUserAvatar(formData)
     .then(result => {
-      avatar.setAvatar(result)
+      userInfo.setAvatar(result)
+      avatarPopup.close();
     })
     .catch(error => {console.log('ОШИБКА: ', error)})
     .finally(()=>{
-      avatarPopup.close();
       renderLoading(false, needPopup, finalText);
     });
   }
@@ -140,9 +136,11 @@ function createCard(item) {
       popupDelete.open();
       popupDelete.setSubmitAction(() => {
         api.deleteCard(item)
-        .then(card.deleteCard())
+        .then( result => {
+          card.deleteCard();
+          popupDelete.close();
+        })
         .catch(error => {console.log('ОШИБКА: ', error)})
-        popupDelete.close();
       })
     },
     handleLikeClick: () => {

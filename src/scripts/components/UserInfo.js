@@ -1,8 +1,9 @@
 
 class UserInfo {
-  constructor({nameSelector, statusSelector}) {
+  constructor({nameSelector, statusSelector, avatarSelector}) {
     this._name = document.querySelector(nameSelector);
     this._status = document.querySelector(statusSelector);
+    this._avatar = document.querySelector(avatarSelector);
   }
 
   getUserInfo() {
@@ -21,6 +22,10 @@ class UserInfo {
   setUserInfo(formData) {
     this._name.textContent = formData.name;
     this._status.textContent = formData.about;
+  }
+
+  setAvatar(formData) {
+    this._avatar.src = formData.avatar;
   }
 }
 
