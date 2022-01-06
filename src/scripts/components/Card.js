@@ -20,10 +20,6 @@ class Card {
     return cardElement;
   }
 
-  _remove() {
-    this._element.remove();
-  }
-
   deleteCard() {
     this._element.remove();
     this._element = null;
