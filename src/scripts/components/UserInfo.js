@@ -13,9 +13,14 @@ class UserInfo {
     return obj;
   }
 
+  getUserId(data) {
+    const obj = data._id;
+    return obj;
+  }
+
   setUserInfo(formData) {
     this._name.textContent = formData.name;
-    this._status.textContent = formData.status;
+    this._status.textContent = formData.about;
   }
 }
 

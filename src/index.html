@@ -14,11 +14,13 @@
 
         <main>
           <section class="profile">
-            <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватарка профиля">
+            <div class="profile__cover">
+              <img class="profile__avatar" src="" alt="Аватарка профиля">
+            </div>
             <div class="profile__info">
-              <h1 class="profile__name">Жак-Ив Кусто</h1>
+              <h1 class="profile__name"></h1>
               <button type="button" class="profile__edit-button buttons"></button>
-              <p class="profile__about">Исследователь океана</p>
+              <p class="profile__about"></p>
             </div>
             <button type="button" class="profile__add-button buttons"></button>
           </section>
@@ -94,7 +96,45 @@
             <div class="input-box">
               <input
                 required
+                type="url"
+                placeholder="Ссылка на картинку"
+                id="pic-input"
+                class="popup__input popup__input_type_pic"
+                name="link"
+              >
 
+              <span class="popup__input-error pic-input-error"></span>
+            </div>
+
+            <button type="submit" class="popup__save-btn">Создать</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="popup popup_type_picture">
+        <div class="popup__picture-content">
+          <button type="button" class="popup__close-btn buttons"></button>
+          <img class="popup__picture-image">
+          <p class="popup__picture-caption"></p>
+        </div>
+      </div>
+
+      <div class="popup popup_type_delete popup_type_others">
+        <form class="popup__content popup__delete-content">
+          <button type="button" class="popup__close-btn buttons"></button>
+          <h3 class="popup__title popup__title_type_del">Вы уверены?</h3>
+          <button type="submit" class="popup__save-btn popup__save-btn_type_del">Да</button>
+        </form>
+      </div>
+
+      <div class="popup popup_type_avatar popup_type_others">
+        <div class="popup__content popup__avatar-content">
+          <button type="button" class="popup__close-btn buttons"></button>
+          <h3 class="popup__title">Обновить аватар</h3>
+          <form class="popup__form popup__form_type_avatar" name="changeAvatar" novalidate>
+            <div class="input-box input-box_type_avatar">
+              <input
+                required
                 type="url"
                 placeholder="Ссылка на картинку"
                 id="pic-input"
@@ -110,21 +150,16 @@
         </div>
       </div>
 
-      <div class="popup popup_type_picture">
-        <div class="popup__picture-content">
-          <button type="button" class="popup__close-btn buttons"></button>
-          <img class="popup__picture-image">
-          <p class="popup__picture-caption"></p>
-        </div>
-      </div>
-
       <template class="template__card">
         <article class="elements-grid__element">
           <button type="button" class="elements-grid__delete-button buttons"></button>
           <img class="elements-grid__pic">
           <div class="elements-grid__group">
             <h2 class="elements-grid__caption"></h2>
-            <button type="button" class="elements-grid__like-button"></button>
+            <div class="elements-grid__likes">
+              <button type="button" class="elements-grid__like-button"></button>
+              <p class="elements-grid__like-counter"></p>
+            </div>
           </div>
         </article>
       </template>
