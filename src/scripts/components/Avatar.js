@@ -5,7 +5,7 @@ class Avatar {
   }
 
   setAvatar(formData) {
-    this._avatar.src = formData.link;
+    this._avatar.src = formData.avatar;
   }
 }
 

@@ -12,6 +12,7 @@ export const cardConfig = {
   picImageOnPage: '.popup__picture-image',
   popupPic: '.popup_type_picture',
   likeButton: '.elements-grid__like-button',
+  likeCounter: '.elements-grid__like-counter',
   likeButtonActive: 'elements-grid__like-button_activated',
   deleteButton: '.elements-grid__delete-button',
   picture: '.elements-grid__pic',

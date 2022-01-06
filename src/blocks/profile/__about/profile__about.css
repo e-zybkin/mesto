@@ -1,7 +1,7 @@
 .profile__about {
   grid-area: about;
   max-width: 336px;
-  min-height: 18px;
+  min-height: 22px;
   font-weight: normal;
   font-size: 18px;
   line-height: 22px;

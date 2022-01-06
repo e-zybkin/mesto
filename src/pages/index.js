@@ -23,38 +23,24 @@ import {
   formConfig
 } from '../scripts/utils/constants.js'
 
+let userId;
+
 const api = new Api({
   address: 'https://mesto.nomoreparties.co/v1/cohort-32',
-  headers: {
-    authorization: 'ad4f580a-7f64-46a3-b778-5998764688dd',
-    'Content-Type': 'application/json'
-  }
+  token: 'ad4f580a-7f64-46a3-b778-5998764688dd'
 });
-/*
-api.getInitialCards()
-.then(result => {
-  defaultSection.createElement(result);
-})
-.catch(error => {
-  console.log('ОШИБКА: ', error)
-})
 
-api.getUserData()
-.then(result => {
-  console.log(result)
-})
-.catch(error => {
-  console.log('ОШИБКА: ', error)
-})
-*/
 Promise.all([api.getUserData(), api.getInitialCards()])
 .then(([userData, cards]) => {
   userInfo.setUserInfo(userData);
   defaultSection.createElement(cards);
+  avatar.setAvatar(userData)
+  userId = userInfo.getUserId(userData);
 })
 
 const defaultSection = new Section({
   renderer: (item) => {
+    //console.log(item);
     const card = createCard(item);
     defaultSection.addItem(card, true);
   },
@@ -84,22 +70,52 @@ avatarValidator.enableValidation();
 
 const profPopup = new PopupWithForm('.popup_type_profile', {
   formSubmit: (formData) => {
-    userInfo.setUserInfo(formData);
-    profPopup.close();
+    const needPopup = document.querySelector('.popup_type_profile');
+    const finalText = needPopup.querySelector(formConfig.submitButtonSelector).textContent;
+    renderLoading(true, needPopup, finalText)
+    api.setUserData(formData)
+    .then(result => {
+      userInfo.setUserInfo(result);
+    })
+    .catch(error => {console.log('ОШИБКА: ', error)})
+    .finally(()=>{
+      profPopup.close();
+      renderLoading(false, needPopup, finalText);
+    });
   }
 });
 
 const cardPopup = new PopupWithForm('.popup_type_item',{
   formSubmit: (formData) => {
-    defaultSection.addItem(createCard(formData), false);
-    cardPopup.close();
+    const needPopup = document.querySelector('.popup_type_item');
+    const finalText = needPopup.querySelector(formConfig.submitButtonSelector).textContent;
+    renderLoading(true, needPopup, finalText)
+    api.setNewCard(formData)
+    .then(result => {
+      defaultSection.addItem(createCard(result), false)
+    })
+    .catch(error => console.log('ОШИБКА: ', error))
+    .finally(()=>{
+      cardPopup.close();
+      renderLoading(false, needPopup, finalText);
+    });
   }
 });
 
 const avatarPopup = new PopupWithForm('.popup_type_avatar', {
   formSubmit: (formData) => {
-    avatar.setAvatar(formData);
-    avatarPopup.close();
+    const needPopup = document.querySelector('.popup_type_avatar');
+    const finalText = needPopup.querySelector(formConfig.submitButtonSelector).textContent;
+    renderLoading(true, needPopup, finalText)
+    api.setUserAvatar(formData)
+    .then(result => {
+      avatar.setAvatar(result)
+    })
+    .catch(error => {console.log('ОШИБКА: ', formData)})
+    .finally(()=>{
+      avatarPopup.close();
+      renderLoading(false, needPopup, finalText);
+    });
   }
 });
 
@@ -110,6 +126,15 @@ const popupDelete = new PopupDelete('.popup_type_delete', {
   handleFormSubmit: () => {}
 });
 
+function renderLoading(isLoading, needPopup, finalText) {
+  if(isLoading) {
+    needPopup.querySelector(formConfig.submitButtonSelector).textContent = "Сохранение...";
+  }
+  else {
+    needPopup.querySelector(formConfig.submitButtonSelector).textContent = finalText;
+  }
+}
+
 function createCard(item) {
   const card = new Card(item, '.template__card', handleCardClick, {
     handleDeleteIconClick: (card) => {
@@ -118,6 +143,25 @@ function createCard(item) {
         card.deleteCard();
         popupDelete.close();
       })
+    },
+    handleLikeClick: () => {
+      if (!item.likes.some(like => like['_id'] === userId)) {
+        api.putLike(item)
+        .then(result => {
+          item = result;
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      } else {
+        api.deleteLike(item)
+        .then(result => {
+          item = result;
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      }
     }
   });
   const view = card.render();
