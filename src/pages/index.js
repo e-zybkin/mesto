@@ -32,15 +32,14 @@ const api = new Api({
 
 Promise.all([api.getUserData(), api.getInitialCards()])
 .then(([userData, cards]) => {
-  userInfo.setUserInfo(userData);
+  userId = userInfo.getUserId(userData);
   defaultSection.createElement(cards);
   avatar.setAvatar(userData)
-  userId = userInfo.getUserId(userData);
+  userInfo.setUserInfo(userData);
 })
 
 const defaultSection = new Section({
   renderer: (item) => {
-    //console.log(item);
     const card = createCard(item);
     defaultSection.addItem(card, true);
   },
@@ -111,7 +110,7 @@ const avatarPopup = new PopupWithForm('.popup_type_avatar', {
     .then(result => {
       avatar.setAvatar(result)
     })
-    .catch(error => {console.log('ОШИБКА: ', formData)})
+    .catch(error => {console.log('ОШИБКА: ', error)})
     .finally(()=>{
       avatarPopup.close();
       renderLoading(false, needPopup, finalText);
@@ -136,11 +135,13 @@ function renderLoading(isLoading, needPopup, finalText) {
 }
 
 function createCard(item) {
-  const card = new Card(item, '.template__card', handleCardClick, {
+  const card = new Card(item, userId, '.template__card', handleCardClick, {
     handleDeleteIconClick: (card) => {
       popupDelete.open();
       popupDelete.setSubmitAction(() => {
-        card.deleteCard();
+        api.deleteCard(item)
+        .then(card.deleteCard())
+        .catch(error => {console.log('ОШИБКА: ', error)})
         popupDelete.close();
       })
     },
@@ -149,6 +150,8 @@ function createCard(item) {
         api.putLike(item)
         .then(result => {
           item = result;
+          card.updateLikeCounter(item);
+          card.likeButton(item);
         })
         .catch(error => {
           console.log(error)
@@ -157,6 +160,8 @@ function createCard(item) {
         api.deleteLike(item)
         .then(result => {
           item = result;
+          card.updateLikeCounter(item);
+          card.likeButton(item);
         })
         .catch(error => {
           console.log(error)

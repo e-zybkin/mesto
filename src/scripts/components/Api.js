@@ -128,6 +128,22 @@ class Api {
       }
     })
   }
+
+  deleteCard(data) {
+    return fetch(`${this.address}/cards/${data._id}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this.token
+      }
+    })
+    .then(result => {
+      if (result.ok) {
+        return result.json();
+      } else {
+        return Promise.reject(`Ошибка: ${result.status}`)
+      }
+    })
+  }
 }
 
 export default Api;

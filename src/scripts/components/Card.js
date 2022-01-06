@@ -1,9 +1,10 @@
 import {cardConfig} from "../utils/constants.js";
 
 class Card {
-  constructor(item, selector, handleCardClick, {handleDeleteIconClick, handleLikeClick}) {
+  constructor(item, userId, selector, handleCardClick, {handleDeleteIconClick, handleLikeClick}) {
     this._item = item;
-    this._ownerId = item._id;
+    this._ownerId = item.owner._id;
+    this._ourId = userId;
     this._selector = selector
     this._handleCardClick = handleCardClick;
     this._handleDeleteIconClick = handleDeleteIconClick;
@@ -28,22 +29,35 @@ class Card {
     this._element = null;
   }
 
-  _likeButton = (event) => {
-    event.target.classList.toggle(cardConfig.likeButtonActive);
-    //this._handleLikeClick();
+  likeButton(data) {
+    if(data.likes.some(like => like['_id'] === this._ourId)) {
+      this._element.querySelector(cardConfig.likeButton).classList.add(cardConfig.likeButtonActive);
+    } else {
+      this._element.querySelector(cardConfig.likeButton).classList.remove(cardConfig.likeButtonActive);
+    }
   }
 
-  //like()
+  updateLikeCounter (data) {
+    this._element.querySelector(cardConfig.likeCounter).textContent = data.likes.length;
+  }
 
   _eventListeners() {
-    this._element.querySelector(cardConfig.likeButton).addEventListener('click', this._like);
-    this._element.querySelector(cardConfig.deleteButton).addEventListener('click', () => {this._handleDeleteIconClick(this)});
+    if(this._item.likes.some(like => like['_id'] === this._ourId)) {
+      this._element.querySelector(cardConfig.likeButton).classList.add(cardConfig.likeButtonActive);
+    } else {
+      this._element.querySelector(cardConfig.likeButton).classList.remove(cardConfig.likeButtonActive);
+    }
+    this._element.querySelector(cardConfig.likeButton).addEventListener('click', this._handleLikeClick);
     this._cardImage.addEventListener('click', ()=> this._handleCardClick(this._item.name, this._item.link));
+    if(this._ownerId === this._ourId) {
+      this._element.querySelector(cardConfig.deleteButton).addEventListener('click', () => {this._handleDeleteIconClick(this)});
+    } else {
+      this._element.querySelector(cardConfig.deleteButton).remove();
+    }
   }
 
   render(){
     this._element = this._getTemplate();
-    //console.log(this._item._id)
     this._cardImage = this._element.querySelector(cardConfig.picture);
     this._cardImage.src = this._item.link;
     this._element.querySelector(cardConfig.caption).textContent = this._item.name;

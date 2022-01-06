@@ -15,7 +15,7 @@ class UserInfo {
 
   getUserId(data) {
     const obj = data._id;
-    console.log(obj);
+    return obj;
   }
 
   setUserInfo(formData) {
