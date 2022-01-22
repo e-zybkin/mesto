@@ -120,11 +120,13 @@
       </div>
 
       <div class="popup popup_type_delete popup_type_others">
-        <form class="popup__content popup__delete-content">
+        <div class="popup__content popup__delete-content">
           <button type="button" class="popup__close-btn buttons"></button>
           <h3 class="popup__title popup__title_type_del">Вы уверены?</h3>
-          <button type="submit" class="popup__save-btn popup__save-btn_type_del">Да</button>
-        </form>
+          <form class="popup__form popup__form_type_delete">
+            <button type="submit" class="popup__save-btn">Да</button>
+          </form>
+        </div>
       </div>
 
       <div class="popup popup_type_avatar popup_type_others">
