@@ -80,9 +80,9 @@ const profPopup = new PopupWithForm('.popup_type_profile', {
   }
 });
 
-const cardPopup = new PopupWithForm('.popup_type_item',{
+const cardPopup = new PopupWithForm('.popup_type_card',{
   formSubmit: (formData) => {
-    const needPopup = document.querySelector('.popup_type_item');
+    const needPopup = document.querySelector('.popup_type_card');
     const finalText = needPopup.querySelector(formConfig.submitButtonSelector).textContent;
     renderLoading(true, needPopup, finalText)
     api.setNewCard(formData)
